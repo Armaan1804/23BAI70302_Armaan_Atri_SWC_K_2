@@ -1,17 +1,14 @@
 import { useState } from 'react';
 
-// Custom hook to manage state history with undo/redo stacks
 function useUndoRedo() {
   const [history, setHistory] = useState([]);
   const [redoStack, setRedoStack] = useState([]);
 
-  // Add a new state. This clears the redo stack since it is a new path
   const set = (newPresent) => {
     setHistory([...history, newPresent]);
     setRedoStack([]);
   };
 
-  // Undo pops from history and pushes to redoStack
   const undo = () => {
     if (history.length === 0) return;
     const newHistory = [...history];
@@ -20,7 +17,6 @@ function useUndoRedo() {
     setRedoStack([...redoStack, popped]);
   };
 
-  // Redo pops from redoStack and pushes to history
   const redo = () => {
     if (redoStack.length === 0) return;
     const newRedoStack = [...redoStack];
@@ -29,24 +25,20 @@ function useUndoRedo() {
     setRedoStack(newRedoStack);
   };
 
-  // Jump to a specific state in the timeline
   const jumpTo = (index) => {
     if (index >= 0 && index < history.length) {
       const newHistory = history.slice(0, index + 1);
       const poppedItems = history.slice(index + 1);
       setHistory(newHistory);
-      // Reverse popped items so that they are redone in the correct order
       setRedoStack([...redoStack, ...poppedItems.reverse()]);
     }
   };
 
-  // Clear all states
   const clear = () => {
     setHistory([]);
     setRedoStack([]);
   };
 
-  // The active state is the most recent/last item in the history list
   const state = history.length > 0 ? history[history.length - 1] : '';
 
   return {
@@ -77,28 +69,22 @@ export default function App() {
 
   const [inputValue, setInputValue] = useState('');
 
-  // Parse input string helper (supports Number, Boolean, Array, Object, String)
   const parseInputValue = (val) => {
     const trimmed = val.trim();
     if (trimmed === '') return '';
     
-    // Check if it's a number
     if (/^-?\d+(\.\d+)?$/.test(trimmed)) {
       return Number(trimmed);
     }
     
-    // Check if it is a boolean
     if (trimmed === 'true') return true;
     if (trimmed === 'false') return false;
     
-    // Check if it is null
     if (trimmed === 'null') return null;
 
-    // Try to parse as JSON for Array/Object
     try {
       return JSON.parse(trimmed);
     } catch (e) {
-      // Fallback to string
       return trimmed;
     }
   };
@@ -123,7 +109,6 @@ export default function App() {
   return (
     <div>
       <div>
-        {/* h1 header displaying the active (most recent) state value */}
         <h1>{formatValue(state)}</h1>
       </div>
 

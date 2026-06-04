@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export default function App() {
-  const [counter, setCounter] = useState(1); // Starting at 1
+  const [counter, setCounter] = useState(1);
   const [clicks, setClicks] = useState(0);
 
   const handleClick = () => {
