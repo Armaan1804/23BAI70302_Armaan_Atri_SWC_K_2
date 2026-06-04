@@ -1,0 +1,29 @@
+*{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    justify-content: center;
+    align-items: center;
+}
+#in{
+    font-size:large;
+    border:3px solid;
+    border-radius: 5px;
+    border-color: antiquewhite;
+    height:30px;
+    width:350px;
+    align-items: center;
+    justify-content: center;
+    color:aliceblue;
+}
+#output{
+    font-size: larger;
+    border:5px solid;
+    border-radius: 15px;
+    border-color: antiquewhite;
+    color:aliceblue;
+    margin-top:20px;
+    height:100px;
+    width:800px;
+    padding: 15px;
+}
